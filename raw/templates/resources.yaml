@@ -1,5 +1,0 @@
-{{- if or $.Values.resources -}}
-  {{- range $.Values.resources }}
----{{- toYaml . | nindent 0 }}
-  {{- end }}
-{{- end -}}
