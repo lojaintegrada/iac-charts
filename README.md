@@ -10,5 +10,3 @@ This project is part of the `iac* family`.
 This repository holds:
 - Helm chart repos that iac-builder uses
 
-NOTE:
-- When you create a chart, the Chart.yaml will be dinamically created by the action
