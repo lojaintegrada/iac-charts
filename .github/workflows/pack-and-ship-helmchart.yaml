@@ -1,47 +1,32 @@
-name: Pack and Push Helmchart
-
+## Reference: https://github.com/helm/chart-releaser-action
+name: Helm Chart Release
 on:
   push:
-    tags:
-      - "*-[0-9]+.[0-9]+.[0-9]+"
+    branches:
+      - master
+
+permissions:
+  contents: read
 
 jobs:
-  pack-and-push:
-    runs-on: self-hosted
+  release:
+    permissions:
+      contents: write  # for helm/chart-releaser-action to push chart release and create a release
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Split Tag
-        id: chart 
-        shell: bash
-        env:
-          TAG: ${{ github.ref_name }}
+      - name: Configure Git
         run: |
-          TAG_SPLITED=$(echo $TAG | sed -E 's/(.*?)-([0-9]+.[0-9]+.[0-9]+)/\1#\2/')
-          echo ::set-output name=NAME::$(cut -d'#' -f1 <<< "$TAG_SPLITED")
-          echo ::set-output name=VERSION::$(cut -d'#' -f2 <<< "$TAG_SPLITED")
-        
-      - name: Add Chart.yaml
-        shell: bash
-        env:
-          CHART_NAME: ${{ steps.chart.outputs.NAME }}
-          CHART_VERSION: ${{ steps.chart.outputs.VERSION }}
-        run: |
-          cat > $CHART_NAME/Chart.yaml <<EOL
-          apiVersion: v2
-          name: $CHART_NAME
-          version: $CHART_VERSION
-          EOL
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Package and Push Chart to Amazon ECR
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.4.1
+        with:
+          charts_dir: charts
         env:
-          ECR_REGISTRY: ${{ secrets.AWS_ECR_REGISTRY }}
-          ECR_REPOSITORY: ${{ secrets.REPOSITORY_NAME }}
-          CHART_NAME: ${{ steps.chart.outputs.NAME }}
-          CHART_VERSION: ${{ steps.chart.outputs.VERSION }}
-        run: |
-          helm package $CHART_NAME
-          helm push $CHART_NAME-$CHART_VERSION.tgz oci://$ECR_REGISTRY/$ECR_REPOSITORY
+          CR_TOKEN: "${{ secrets.GITFLOW_ACCESS_TOKEN }}"
