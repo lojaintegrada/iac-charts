@@ -8,5 +8,7 @@ This project is part of the `iac* family`.
 | iac-mods        | https://github.com/lojaintegrada/iac-mods/        |
 
 This repository holds:
-- Helm chart repos that iac-builder uses
+- Helm chart repos to install directly with iac-builder
+
+
 
