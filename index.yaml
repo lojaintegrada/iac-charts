@@ -1,5 +1,28 @@
 apiVersion: v1
 entries:
+  prometheus-elasticsearch-exporter:
+  - apiVersion: v1
+    appVersion: 1.5.0
+    created: "2022-12-28T10:27:56.187905778Z"
+    description: Elasticsearch stats exporter for Prometheus
+    digest: 886eadb35d1488cabab1f96d9ce45c489c1d20426f22008b309dafdf5c194494
+    home: https://github.com/prometheus-community/elasticsearch_exporter
+    keywords:
+    - metrics
+    - elasticsearch
+    - monitoring
+    kubeVersion: '>=1.10.0-0'
+    maintainers:
+    - email: sven.mueller@commercetools.com
+      name: svenmueller
+    - email: cedric@desaintmartin.fr
+      name: desaintmartin
+    name: prometheus-elasticsearch-exporter
+    sources:
+    - https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-elasticsearch-exporter
+    urls:
+    - https://github.com/lojaintegrada/iac-charts/releases/download/prometheus-elasticsearch-exporter-5.0.0/prometheus-elasticsearch-exporter-5.0.0.tgz
+    version: 5.0.0
   raw:
   - apiVersion: v2
     created: "2022-12-27T10:38:59.304314895Z"
@@ -8,4 +31,4 @@ entries:
     urls:
     - https://github.com/lojaintegrada/iac-charts/releases/download/raw-0.1.2/raw-0.1.2.tgz
     version: 0.1.2
-generated: "2022-12-27T10:38:59.304320136Z"
+generated: "2022-12-28T10:27:56.187924959Z"
