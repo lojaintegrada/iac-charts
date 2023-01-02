@@ -7,6 +7,7 @@ A collection of forked/customize charts that we use, so we can avoid external de
 | chart | based on 
 | -- | -- | 
 | prometheus-elasticsearch-exporter | https://artifacthub.io/packages/helm/prometheus-community/prometheus-elasticsearch-exporter
+| prometheus-kafka-exporter | https://artifacthub.io/packages/helm/prometheus-community/prometheus-kafka-exporter
 | raw | https://github.com/bedag/helm-charts/tree/master/charts/raw
 
 ### How is it work?
