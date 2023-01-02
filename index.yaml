@@ -23,6 +23,32 @@ entries:
     urls:
     - https://github.com/lojaintegrada/iac-charts/releases/download/prometheus-elasticsearch-exporter-5.0.0/prometheus-elasticsearch-exporter-5.0.0.tgz
     version: 5.0.0
+  prometheus-kafka-exporter:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-kafka-exporter
+    apiVersion: v2
+    appVersion: v1.6.0
+    created: "2023-01-02T13:14:25.609501332Z"
+    description: A Helm chart to export the metrics from Kafka in Prometheus format
+      using the kafka-exporter from https://github.com/danielqsj/kafka_exporter
+    digest: 403eab1378e6c3f299d74eb2f2e099e26154ba070161b645e01869c9f224d08d
+    home: https://github.com/danielqsj/kafka_exporter
+    keywords:
+    - prometheus
+    - kafka
+    maintainers:
+    - email: github.gkarthiks@gmail.com
+      name: gkarthiks
+    - email: golgoth31@notrenet.com
+      name: golgoth31
+    name: prometheus-kafka-exporter
+    sources:
+    - https://gkarthiks.github.io/helm-charts/charts/prometheus-kafka-exporter
+    urls:
+    - https://github.com/lojaintegrada/iac-charts/releases/download/prometheus-kafka-exporter-1.7.0/prometheus-kafka-exporter-1.7.0.tgz
+    version: 1.7.0
   raw:
   - apiVersion: v2
     created: "2022-12-27T10:38:59.304314895Z"
@@ -31,4 +57,4 @@ entries:
     urls:
     - https://github.com/lojaintegrada/iac-charts/releases/download/raw-0.1.2/raw-0.1.2.tgz
     version: 0.1.2
-generated: "2022-12-28T10:27:56.187924959Z"
+generated: "2023-01-02T13:14:25.732346414Z"
