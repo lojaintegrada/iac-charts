@@ -5,14 +5,11 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-
 jobs:
   release:
     permissions:
       contents: write  # for helm/chart-releaser-action to push chart release and create a release
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -24,10 +21,15 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.10.0
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.1
         with:
           charts_dir: charts
         env:
-          CR_TOKEN: "${{ secrets.GITFLOW_ACCESS_TOKEN }}"
+          CR_TOKEN: "${{ secrets.LI_GITOPS_TOKEN }}"
           CR_SKIP_EXISTING: true
