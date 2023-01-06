@@ -1,5 +1,43 @@
 apiVersion: v1
 entries:
+  consul:
+  - annotations:
+      artifacthub.io/images: |
+        - name: consul
+          image: hashicorp/consul:1.14.2
+        - name: consul-k8s-control-plane
+          image: hashicorp/consul-k8s-control-plane:1.0.2
+        - name: consul-dataplane
+          image: hashicorp/consul-dataplane:1.0.0
+        - name: envoy
+          image: envoyproxy/envoy:v1.23.1
+      artifacthub.io/license: MPL-2.0
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://www.consul.io/docs/k8s
+        - name: hashicorp/consul
+          url: https://github.com/hashicorp/consul
+        - name: hashicorp/consul-k8s
+          url: https://github.com/hashicorp/consul-k8s
+      artifacthub.io/prerelease: "false"
+      artifacthub.io/signKey: |
+        fingerprint: C874011F0AB405110D02105534365D9472D7468F
+        url: https://keybase.io/hashicorp/pgp_keys.asc
+    apiVersion: v2
+    appVersion: 1.14.2
+    created: "2023-01-06T08:52:16.710380396Z"
+    description: Official HashiCorp Consul Chart
+    digest: f5793bc6fb40e8a85ff97798319d603ef2eb9d2db9d62ac0835fe2cf0c848786
+    home: https://www.consul.io
+    icon: https://raw.githubusercontent.com/hashicorp/consul-k8s/main/assets/icon.png
+    kubeVersion: '>=1.21.0-0'
+    name: consul
+    sources:
+    - https://github.com/hashicorp/consul
+    - https://github.com/hashicorp/consul-k8s
+    urls:
+    - https://github.com/lojaintegrada/iac-charts/releases/download/consul-1.0.2/consul-1.0.2.tgz
+    version: 1.0.2
   prometheus-elasticsearch-exporter:
   - apiVersion: v1
     appVersion: 1.5.0
@@ -57,4 +95,4 @@ entries:
     urls:
     - https://github.com/lojaintegrada/iac-charts/releases/download/raw-0.1.2/raw-0.1.2.tgz
     version: 0.1.2
-generated: "2023-01-02T13:14:25.732346414Z"
+generated: "2023-01-06T08:52:16.816513268Z"
