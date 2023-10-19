@@ -9,6 +9,7 @@ NOTE: one custom thing that we add to charts is the extra-manifest.yaml that all
 | chart | based on 
 | -- | -- | 
 | consul | https://artifacthub.io/packages/helm/hashicorp/consul
+| metabase | https://artifacthub.io/packages/helm/metabase-helm/metabase
 | prometheus-elasticsearch-exporter | https://artifacthub.io/packages/helm/prometheus-community/prometheus-elasticsearch-exporter
 | prometheus-kafka-exporter | https://artifacthub.io/packages/helm/prometheus-community/prometheus-kafka-exporter
 | raw | https://github.com/bedag/helm-charts/tree/master/charts/raw
