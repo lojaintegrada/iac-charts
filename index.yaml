@@ -38,6 +38,24 @@ entries:
     urls:
     - https://github.com/lojaintegrada/iac-charts/releases/download/consul-1.0.2/consul-1.0.2.tgz
     version: 1.0.2
+  metabase:
+  - apiVersion: v1
+    appVersion: v0.46.0
+    created: "2023-10-19T17:41:11.134410075Z"
+    description: The easy, open source way for everyone in your company to ask questions
+      and learn from data.
+    digest: 0910c415b28643fa2ea423e287f9b454260a530ae1352d224f320d6d0abdfc4a
+    home: http://www.metabase.com/
+    icon: http://www.metabase.com/images/logo.svg
+    maintainers:
+    - email: aminaleahmad@yahoo.com
+      name: aminaleahmad
+    name: metabase
+    sources:
+    - https://github.com/metabase/metabase
+    urls:
+    - https://github.com/lojaintegrada/iac-charts/releases/download/metabase-2.7.1/metabase-2.7.1.tgz
+    version: 2.7.1
   prometheus-elasticsearch-exporter:
   - apiVersion: v1
     appVersion: 1.5.0
@@ -95,4 +113,4 @@ entries:
     urls:
     - https://github.com/lojaintegrada/iac-charts/releases/download/raw-0.1.2/raw-0.1.2.tgz
     version: 0.1.2
-generated: "2023-01-06T08:52:16.816513268Z"
+generated: "2023-10-19T17:41:11.134416775Z"
