@@ -31,5 +31,5 @@ jobs:
         with:
           charts_dir: charts
         env:
-          CR_TOKEN: "${{ secrets.LI_GITOPS_TOKEN }}"
+          CR_TOKEN: "${{ secrets.PACKAGES_TOKEN }}"
           CR_SKIP_EXISTING: true
