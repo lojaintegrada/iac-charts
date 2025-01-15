@@ -11,10 +11,26 @@ metadata:
 spec:
   endpoints:
     - port: metrics
+      path: {{ .Values.serviceMonitor.path }}
+      honorLabels: {{ .Values.serviceMonitor.honorLabels }}
+      {{- with .Values.serviceMonitor.interval }}
+      interval: {{ . }}
+      {{- end }}
+      {{- with .Values.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ . }}
+      {{- end }}
+      {{- with .Values.serviceMonitor.metricRelabelings }}
+      metricRelabelings:
+        {{- tpl (toYaml . | nindent 6) $ }}
+      {{- end }}
+      {{- with .Values.serviceMonitor.relabelings }}
+      relabelings:
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
   namespaceSelector:
     matchNames:
       - kube-system
   selector:
     matchLabels:
-      k8s-app: {{ include "node-local-dns.name" . }}
+      {{- include "node-local-dns.selectorLabels" . | nindent 6 }}
 {{- end -}}
