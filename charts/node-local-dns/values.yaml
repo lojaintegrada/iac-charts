@@ -126,3 +126,4 @@ imagePullSecrets: []
 
 prometheusScraping:
   enabled: true
+
