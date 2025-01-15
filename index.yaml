@@ -59,6 +59,28 @@ entries:
   node-local-dns:
   - apiVersion: v2
     appVersion: 1.23.1
+    created: "2025-01-15T10:21:15.541847327Z"
+    description: 'A chart to install node-local-dns.  NodeLocal DNSCache improves
+      Cluster DNS performance by running a DNS caching agent on cluster nodes as a
+      DaemonSet.  In today''s architecture, Pods in ''ClusterFirst'' DNS mode reach
+      out to a kube-dns serviceIP for DNS queries. This is translated to a kube-dns/CoreDNS
+      endpoint via iptables rules added by kube-proxy. With this new architecture,
+      Pods will reach out to the DNS caching agent running on the same node, thereby
+      avoiding iptables DNAT rules and connection tracking. The local caching agent
+      will query kube-dns service for cache misses of cluster hostnames ("cluster.local"
+      suffix by default).  Further documentation is [here](https://kubernetes.io/docs/tasks/administer-cluster/nodelocaldns/)  This
+      helm chart works for both kube-proxy setups (iptables or ipvs). '
+    digest: 27104358d13eb2c8fdec685a30b320bafbebf1ca651bcbd19908f3ad6c1fcf53
+    icon: https://miro.medium.com/max/641/1*q3vcbyVXcvaRnFLEQEHrXw.png
+    maintainers:
+    - email: no-reply@deliveryhero.com
+      name: gabrieladt
+    name: node-local-dns
+    urls:
+    - https://github.com/lojaintegrada/iac-charts/releases/download/node-local-dns-2.1.0/node-local-dns-2.1.0.tgz
+    version: 2.1.0
+  - apiVersion: v2
+    appVersion: 1.23.1
     created: "2025-01-15T10:08:06.68730078Z"
     description: 'A chart to install node-local-dns.  NodeLocal DNSCache improves
       Cluster DNS performance by running a DNS caching agent on cluster nodes as a
@@ -158,4 +180,4 @@ entries:
     urls:
     - https://github.com/lojaintegrada/iac-charts/releases/download/raw-0.1.2/raw-0.1.2.tgz
     version: 0.1.2
-generated: "2025-01-15T10:08:06.687332529Z"
+generated: "2025-01-15T10:21:15.541864689Z"
