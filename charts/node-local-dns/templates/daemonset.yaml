@@ -13,29 +13,30 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.updateStrategy }}
   updateStrategy:
-    rollingUpdate:
-      maxUnavailable: 10%
+    {{- toYaml .Values.updateStrategy | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
-      k8s-app: {{ include "node-local-dns.name" . }}
+      {{- include "node-local-dns.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-      {{- if .Values.podLabels }}
-        {{- toYaml .Values.podLabels | nindent 8 }}
-      {{- end }}
-        k8s-app: {{ include "node-local-dns.name" . }}
-      {{- if or .Values.podAnnotations (not .Values.serviceMonitor.enabled) }}
+        {{- include "node-local-dns.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- if or .Values.podAnnotations .Values.prometheusScraping.enabled }}
       annotations:
-      {{- end }}
-         {{- if and (not .Values.serviceMonitor.enabled) .Values.prometheusScraping.enabled }}
+        {{- if and (not .Values.serviceMonitor.enabled) .Values.prometheusScraping.enabled }}
         prometheus.io/port: "9253"
         prometheus.io/scrape: "true"
         {{- end }}
         {{- if .Values.podAnnotations }}
           {{- toYaml .Values.podAnnotations | nindent 8 }}
         {{- end }}
+      {{- end }}
     spec:
       {{- if .Values.affinity }}
       affinity: {{- toYaml .Values.affinity | nindent 8 }}
@@ -48,17 +49,19 @@ spec:
       hostNetwork: {{ .Values.config.setupIptables }}
       dnsPolicy: Default  # Don't use cluster DNS.
       tolerations:
-      - key: "CriticalAddonsOnly"
-        operator: "Exists"
-      - effect: "NoExecute"
-        operator: "Exists"
-      - effect: "NoSchedule"
-        operator: "Exists"
+      {{- toYaml .Values.tolerations | nindent 8 }}
+      {{- with .Values.initContainers }}
+      initContainers:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: node-cache
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         {{- with .Values.resources }}
         resources: {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.resizePolicy }}
+        resizePolicy: {{- toYaml . | nindent 10 }}
         {{- end }}
         args:
         {{- if .Values.config.setupIptables }}
@@ -84,11 +87,11 @@ spec:
           {{- toYaml .Values.securityContext | nindent 10 }}
         {{- end }}
         ports:
-        - containerPort: 53
-          name: dns
+        - containerPort: {{ .Values.config.port.number }}
+          name: {{ .Values.config.port.udp}}
           protocol: UDP
-        - containerPort: 53
-          name: dns-tcp
+        - containerPort: {{ .Values.config.port.number }}
+          name: {{ .Values.config.port.tcp}}
           protocol: TCP
         - containerPort: 9253
           name: metrics

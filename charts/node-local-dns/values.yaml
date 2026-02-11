@@ -16,11 +16,18 @@ config:
   # -- Use a custom upstreamsvc for -upstreamsvc
   customUpstreamsvc: ""
 
+  # -- Use a custom upstream service selector
+  upstreamServiceSelector:
+    k8s-app: kube-dns
+
   # -- If false, it will bind 0.0.0.0, otherwise dnsServer and localDns will be used. https://github.com/bottlerocket-os/bottlerocket/issues/3711#issuecomment-1907087528
   bindIp: false
 
   # -- Set communication protocol. Options are `prefer_udp` or `force_tcp`
   commProtocol: "force_tcp"
+
+  # -- Set boolean to log DNS requests
+  enableLogging: false
 
   # -- If true, return NOERROR when attempting to resolve an IPv6 address
   noIPv6Lookups: false
@@ -41,8 +48,19 @@ config:
 
   skipTeardown: false
 
+  # -- Add extra server blocks to the generated configuration.
+  extraServerBlocks: ""
+
   # -- Overrides the generated configuration with specified one.
   customConfig: ""
+
+  port:
+    # -- Port used for DNS traffic
+    number: 53
+    # -- Port name used for TCP DNS traffic
+    tcp: dns-tcp
+    # -- Port name used for UDP DNS traffic
+    udp: dns
 
 nameOverride: ""
 fullnameOverride: ""
@@ -64,14 +82,29 @@ podAnnotations: {}
 
 podLabels: {}
 
+configMapAnnotations: {}
+
+configMapLabels: {}
+
 daemonsetAnnotations: {}
 
 daemonsetLabels: {}
 
+# -- DaemonSet update strategy configuration
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 10%
+    # Optional, can be set to a integer value rather than a percentage
+    # maxUnavailable: 1
+    # maxSurge: 0
+
+initContainers: []
+
 securityContext:
   capabilities:
     add:
-    - NET_ADMIN
+      - NET_ADMIN
 
 # -- https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/getting-started.md
 serviceMonitor:
@@ -102,6 +135,12 @@ serviceMonitor:
   #   targetLabel: nodename
   #   replacement: $1
   #   action: replace
+  #
+
+  # -- The service monitor name prefix which align with the prometheus operator name, eg.: `kube-prometheus-stack`
+  namePrefix: ""
+  # -- The namespace of prometheus where the service monitor should be deployed
+  prometheusNamespace: kube-system
 
 # -- https://github.com/grafana/helm-charts/blob/main/charts/grafana/README.md
 dashboard:
@@ -119,6 +158,14 @@ resources:
   limits:
     memory: 128Mi
 
+# -- Resize policy for in-place pod vertical scaling.
+# [Container resize policies](https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/)
+resizePolicy: []
+  # - resourceName: cpu
+  #   restartPolicy: NotRequired
+  # - resourceName: memory
+  #   restartPolicy: RestartContainer
+
 affinity: {}
 
 imagePullSecrets: []
@@ -127,3 +174,10 @@ imagePullSecrets: []
 prometheusScraping:
   enabled: true
 
+tolerations:
+  - key: "CriticalAddonsOnly"
+    operator: "Exists"
+  - effect: "NoExecute"
+    operator: "Exists"
+  - effect: "NoSchedule"
+    operator: "Exists"

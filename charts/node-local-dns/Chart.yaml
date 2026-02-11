@@ -1,5 +1,9 @@
+annotations:
+  artifacthub.io/links: |
+    - name: Helm chart source
+      url: https://github.com/deliveryhero/helm-charts/tree/master/stable/node-local-dns
 apiVersion: v2
-appVersion: 1.23.1
+appVersion: 1.26.7
 description: 'A chart to install node-local-dns.  NodeLocal DNSCache improves Cluster
   DNS performance by running a DNS caching agent on cluster nodes as a DaemonSet.  In
   today''s architecture, Pods in ''ClusterFirst'' DNS mode reach out to a kube-dns
@@ -12,7 +16,7 @@ description: 'A chart to install node-local-dns.  NodeLocal DNSCache improves Cl
   helm chart works for both kube-proxy setups (iptables or ipvs). '
 icon: https://miro.medium.com/max/641/1*q3vcbyVXcvaRnFLEQEHrXw.png
 maintainers:
-- email: no-reply@deliveryhero.com
-  name: gabrieladt
+- name: gabrieladt
+  url: https://github.com/gabrieladt
 name: node-local-dns
-version: 2.1.0
+version: 2.5.0

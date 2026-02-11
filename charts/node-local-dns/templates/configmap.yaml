@@ -3,15 +3,24 @@ kind: ConfigMap
 metadata:
   name: {{ include "node-local-dns.fullname" . }}
   namespace: kube-system
+  {{- with .Values.configMapAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   labels:
-    addonmanager.kubernetes.io/mode: Reconcile
     {{- include "node-local-dns.labels" . | nindent 4 }}
+  {{- with .Values.configMapLabels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 data:
   Corefile: |
     {{- if .Values.config.customConfig -}}
     {{- tpl .Values.config.customConfig . | nindent 4}}
     {{- else }}
     {{ .Values.config.dnsDomain }}:53 {
+    {{- if .Values.config.enableLogging }}
+        log
+    {{- end }}
         errors
         cache {
                 success 9984 30
@@ -91,6 +100,9 @@ data:
         prometheus :9253
         }
     .:53 {
+    {{- if .Values.config.enableLogging}}
+        log
+    {{- end }}
         errors
     {{- if .Values.config.prefetch.enabled}}
         cache 30 {
@@ -114,4 +126,7 @@ data:
         }
     {{- end }}
         }
+    {{- end }}
+    {{- if and .Values.config.extraServerBlocks (not .Values.config.customConfig) }}
+    {{- .Values.config.extraServerBlocks | nindent 4 -}}
     {{ end }}
