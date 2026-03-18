@@ -9,6 +9,7 @@ NOTE: one custom thing that we add to charts is the extra-manifest.yaml that all
 | chart | based on 
 | -- | -- | 
 | consul | https://artifacthub.io/packages/helm/hashicorp/consul
+| mailpit | https://artifacthub.io/packages/helm/jouve/mailpit
 | metabase | https://artifacthub.io/packages/helm/metabase-helm/metabase
 | node-local-dns | https://artifacthub.io/packages/helm/deliveryhero/node-local-dns
 | prometheus-elasticsearch-exporter | https://artifacthub.io/packages/helm/prometheus-community/prometheus-elasticsearch-exporter
