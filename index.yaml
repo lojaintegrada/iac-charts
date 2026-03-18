@@ -38,6 +38,30 @@ entries:
     urls:
     - https://github.com/lojaintegrada/iac-charts/releases/download/consul-1.0.2/consul-1.0.2.tgz
     version: 1.0.2
+  mailpit:
+  - annotations:
+      artifacthub.io/license: GPL-3.0-or-later
+    apiVersion: v2
+    appVersion: 1.28.2
+    created: "2026-03-18T17:35:45.631240395Z"
+    dependencies:
+    - name: common
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 2.x.x
+    description: An email and SMTP testing tool with API for developers
+    digest: 745f25cc8851e5ab5fe54bcd2b7baf726607443bafdb95eb760cd77b473049c4
+    icon: https://raw.githubusercontent.com/axllent/mailpit/develop/server/ui/mailpit.svg
+    maintainers:
+    - name: jouve
+      url: https://github.com/jouve
+    name: mailpit
+    sources:
+    - https://github.com/jouve/charts
+    - https://github.com/axllent/mailpit
+    type: application
+    urls:
+    - https://github.com/lojaintegrada/iac-charts/releases/download/mailpit-0.31.3/mailpit-0.31.3.tgz
+    version: 0.31.3
   metabase:
   - apiVersion: v1
     appVersion: v0.46.0
@@ -206,4 +230,4 @@ entries:
     urls:
     - https://github.com/lojaintegrada/iac-charts/releases/download/raw-0.1.2/raw-0.1.2.tgz
     version: 0.1.2
-generated: "2026-02-11T10:14:45.527403248Z"
+generated: "2026-03-18T17:35:45.631261935Z"
